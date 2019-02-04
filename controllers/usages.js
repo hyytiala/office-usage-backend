@@ -6,6 +6,19 @@ usagesRouter.get('/', async (req, res) => {
     res.json(usages.map(Usage.format))
 })
 
+usagesRouter.get('/total', async (req, res) => {
+    const usages = await Usage.find({}).populate('group', { _id: 1, name: 1 })
+    const under = usages.map(a => a.over).reduce((a, b) => a + b, 0)
+    const over = usages.map(a => a.under).reduce((a, b) => a + b, 0)
+    const other = usages.map(a => a.other).reduce((a, b) => a + b, 0)
+    const sums = {
+        under,
+        over,
+        other
+    }
+    res.json(sums)
+})
+
 usagesRouter.post('/', async (req, res) => {
     try {
         const body = req.body
