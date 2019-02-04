@@ -1,12 +1,12 @@
-const usageRouter = require('express').Router()
+const usagesRouter = require('express').Router()
 const Usage = require('../models/usage')
 
-usageRouter.get('/', async (req, res) => {
+usagesRouter.get('/', async (req, res) => {
     const usages = await Usage.find({}).populate('group', { _id: 1, name: 1 })
     res.json(usages.map(Usage.format))
 })
 
-usageRouter.post('/', async (req, res) => {
+usagesRouter.post('/', async (req, res) => {
     try {
         const body = req.body
         if (body.group.length === 0) {
@@ -28,3 +28,5 @@ usageRouter.post('/', async (req, res) => {
         res.status(500).json({error: 'something went wrong...'})
     }
 })
+
+module.exports = usagesRouter

@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const morgan  = require('morgan')
 //Routers
 const groupsRouter = require('./controllers/groups')
+const usagesRouter = require('./controllers/usages')
 
 mongoose
     .connect(config.mongoUrl, {
@@ -27,6 +28,7 @@ app.use(bodyParser.json())
 app.use(morgan('tiny'))
 
 app.use('/api/groups', groupsRouter)
+app.use('/api/usages', usagesRouter)
 
 const server = http.createServer(app)
 
