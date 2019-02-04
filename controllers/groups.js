@@ -4,7 +4,7 @@ const Group = require('../models/group')
 
 groupsRouter.get('/', async (req, res) => {
     const groups = await Group.find({})
-    res.json(groups.map(Group.format))
+    res.json(groups.map(Group.format).sort((a,b) => a.name > b.name))
 })
 
 groupsRouter.post('/', async (req, res) => {
