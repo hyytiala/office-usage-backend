@@ -31,4 +31,14 @@ groupsRouter.post('/', async (req, res) => {
     }
 })
 
+groupsRouter.delete('/:id', async (req, res) => {
+    try {
+        await Group.findByIdAndRemove(req.params.id)
+        res.status(204).end()
+    } catch (exception) {
+        console.log(exception)
+        res.status(400).send({error: 'malformatted id'})
+    }
+})
+
 module.exports = groupsRouter
