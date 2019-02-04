@@ -11,6 +11,7 @@ const usageSchema = new mongoose.Schema({
 usageSchema.statics.format = (usage) => {
     return {
         id: usage.id,
+        date: usage.date,
         group: usage.group,
         under: usage.under,
         over: usage.over,
